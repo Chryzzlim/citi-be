@@ -39,12 +39,19 @@ const schema = new Schema(
       isConfirmed: {
           type: Boolean,
           default: false
+      }, 
+      userInfo: {
+        type: Object,
       }
     },
     {
       timestamps: true,
-    }
+    }, 
   );
+
+schema.virtual("fullname").get(function () {
+  return this.firstName + " " + this.lastName
+})
 
 schema.pre("save", function (next) {
   var user = this;

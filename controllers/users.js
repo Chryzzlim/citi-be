@@ -1,6 +1,27 @@
 const User = require("../models/users");
 const jwt = require("jsonwebtoken");
 
+
+exports.update = async (req, res) => {
+    try {
+        const updateUser = await User.findByIdAndUpdate(req.params.id, req.body)
+        res.send({success: true, message: 'User Updated', user: updateUser})
+    } catch (error) {
+        console.log(error)
+        res.send({success: false, error})
+    }
+}
+
+exports.getAll = async (req, res) => {
+    try {
+        const users = await User.find({})
+        console.log(users)
+        res.send({success: true, users})
+    } catch (error) {
+        res.send({success: false, error})
+    }
+}
+
 exports.register = async (req, res) => {
     // check email
     const userExists = await User.findOne({ email: req.body.email });
