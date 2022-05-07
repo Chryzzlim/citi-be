@@ -2,6 +2,16 @@ const User = require("../models/users");
 const jwt = require("jsonwebtoken");
 
 
+exports.getUser = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id)
+        res.send({success: true, user})
+    } catch (error) {
+        console.log(error)
+        res.send({success: false, error})
+    }
+}
+
 exports.update = async (req, res) => {
     try {
         const updateUser = await User.findByIdAndUpdate(req.params.id, req.body)
